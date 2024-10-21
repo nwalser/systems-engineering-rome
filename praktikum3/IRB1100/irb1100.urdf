@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<robot name="irb1100">
+    <link name="base">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 0.327"/>
+            <geometry>
+                <mesh filename="meshes/visual/base.stl"/>
+            </geometry>
+            <material name="darkGray">
+                <color rgba="0.63 0.63 0.65 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="link1">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 0.327"/>
+            <geometry>
+                <mesh filename="meshes/visual/link1.stl"/>
+            </geometry>
+            <material name="lightGray">
+                <color rgba="0.93 0.93 0.97 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="link2">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/link2.stl"/>
+            </geometry>
+            <material name="lightGray">
+                <color rgba="0.93 0.93 0.97 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="link3">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 -0.280"/>
+            <geometry>
+                <mesh filename="meshes/visual/link3.stl"/>
+            </geometry>
+            <material name="darkGray">
+                <color rgba="0.63 0.63 0.65 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="link4">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 -0.290"/>
+            <geometry>
+                <mesh filename="meshes/visual/link4.stl"/>
+            </geometry>
+            <material name="lightGray">
+                <color rgba="0.93 0.93 0.97 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="link5">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="-0.300 0 -0.290"/>
+            <geometry>
+                <mesh filename="meshes/visual/link5.stl"/>
+            </geometry>
+            <material name="darkGray">
+                <color rgba="0.63 0.63 0.65 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="link6">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="-0.364 0 -0.290"/>
+            <geometry>
+                <mesh filename="meshes/visual/link6.stl"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0.2 0.2 0.2 1"/>
+            </material>
+        </visual>
+    </link>
+    <link name="tool0"/>
+    <joint name="joint1" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="base"/>
+        <child link="link1"/>
+        <limit effort="0" lower="-4.014" upper="4.014" velocity="8.029"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <joint name="joint2" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0.327"/>
+        <parent link="link1"/>
+        <child link="link2"/>
+        <limit effort="0" lower="-2.007" upper="1.972" velocity="6.632"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <joint name="joint3" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0.280"/>
+        <parent link="link2"/>
+        <child link="link3"/>
+        <limit effort="0" lower="-3.578" upper="0.960" velocity="4.887"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <joint name="joint4" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0.010"/>
+        <parent link="link3"/>
+        <child link="link4"/>
+        <limit effort="0" lower="-4.014" upper="4.014" velocity="9.774"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+    <joint name="joint5" type="revolute">
+        <origin rpy="0 0 0" xyz="0.300 0 0"/>
+        <parent link="link4"/>
+        <child link="link5"/>
+        <limit effort="0" lower="-2.182" upper="2.094" velocity="7.330"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <joint name="joint6" type="revolute">
+        <origin rpy="0 0 0" xyz="0.064 0 0"/>
+        <parent link="link5"/>
+        <child link="link6"/>
+        <limit effort="0" lower="-6.981" upper="6.981" velocity="13.090"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+    <joint name="joint6-tool0" type="fixed">
+        <parent link="link6"/>
+        <child link="tool0"/>
+        <origin rpy="0 1.57079632679 0" xyz="0 0 0"/>
+    </joint>
+</robot>
