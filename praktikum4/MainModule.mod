@@ -69,7 +69,9 @@ MODULE MainModule
       CASE "Home": MoveAbsJ [[0, 0, 0, 0, 45, 0],[9E+09, 9E+09, 9E+09, 9E+09, 9E+09, 9E+09]] \NoEOffs, v100, fine, tool1;
       
       CASE "MoveAbsJ": MoveAbsJ [[parseNumber(buffer,1), parseNumber(buffer,2), parseNumber(buffer,3), parseNumber(buffer,4), parseNumber(buffer,5), parseNumber(buffer,6)], [9E+09, 9E+09, 9E+09, 9E+09, 9E+09, 9E+09]] \NoEOffs, v100, fine, tool1;
-      
+
+      CASE "MoveL": MoveL [[parseNumber(buffer,1), parseNumber(buffer,2), parseNumber(buffer,3)], [parseNumber(buffer,4), parseNumber(buffer,5), parseNumber(buffer,6), parseNumber(buffer,7)], [parseNumber(buffer,8), parseNumber(buffer,9), parseNumber(buffer,10)], parseNumber(buffer,11)] \NoEOffs, v100, fine, tool1;
+
     ENDTEST
 
     RETURN "OK";
