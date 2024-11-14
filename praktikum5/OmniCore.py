@@ -3,8 +3,10 @@ import math
 
 PORT = 8400  # the port used by the server
 
-"""control an ABB robot with Python"""
+
 class OmniCore:
+    """control an ABB robot with Python"""
+
     def __init__(self, ipAddress):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((ipAddress, PORT))
@@ -17,16 +19,19 @@ class OmniCore:
         self.s.close()
 
     def home(self):
-        b = bytes("Home\r\n", 'utf-8')
-        self.s.sendall(b)
-        data = self.s.recv(1024)
-        return data
+        return self.__send(f"Home\r\n")
 
     def moveAbsJ(self, theta):
-        b = bytes(f"MoveAbsJ {theta[0]:.3f} {theta[1]:.3f} {theta[2]:.3f} {theta[3]:.3f} {theta[4]:.3f} {theta[5]:.3f}\r\n", 'utf-8')
-        self.s.sendall(b)
-        data = self.s.recv(1024)
-        return data
+        return self.__send(f"MoveAbsJ {theta[0]:.3f} {theta[1]:.3f} {theta[2]:.3f} {theta[3]:.3f} {theta[4]:.3f} {theta[5]:.3f}\r\n")
+
+    def tool(self, state: bool):
+        return self.__send(f"Tool {int(state == True)} \r\n")
+
+    def air(self, state: bool):
+        return self.__send(f"Air {int(state == True)} \r\n")
+
+    def gripper(self, state: bool):
+        return self.__send(f"Gripper {int(state == True)} \r\n")
 
     def moveJ(self, x, r, theta, velocity, zone):
         return self.__move("MoveJ", x, r, theta, velocity, zone)
@@ -88,7 +93,15 @@ class OmniCore:
             zone = 0
         elif zone > 100:
             zone = 100
-        b = bytes(f"{command} {x[0]:.2f} {x[1]:.2f} {x[2]:.2f} {quaternion[0]:.5f} {quaternion[1]:.5f} {quaternion[2]:.5f} {quaternion[3]:.5f} {quadrant[0]:d} {quadrant[1]:d} {quadrant[2]:d} {quadrant[3]:d} {velocity:d} {zone:d}\r\n", 'utf-8')
-        self.s.sendall(b)
-        data = self.s.recv(1024)
-        return data
+
+        return self.__send(f"{command} "
+                           f"{x[0]:.2f} {x[1]:.2f} {x[2]:.2f} "
+                           f"{quaternion[0]:.5f} {quaternion[1]:.5f} {quaternion[2]:.5f} {quaternion[3]:.5f} "
+                           f"{quadrant[0]:d} {quadrant[1]:d} {quadrant[2]:d} {quadrant[3]:d} "
+                           f"{velocity:d} "
+                           f"{zone:d}\r\n")
+
+    def __send(self, data: str):
+        self.s.sendall(bytes(data, 'utf-8'))
+        receive = self.s.recv(1024)
+        return receive
