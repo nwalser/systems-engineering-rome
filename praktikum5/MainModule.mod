@@ -96,7 +96,15 @@
                   EGMActMove egmID1, distanceSensor.tframe \SampleRate:=120;
                   EGMMoveL egmID1, [[parseNumber(buffer,1), parseNumber(buffer,2), parseNumber(buffer,3)], [parseNumber(buffer,4), parseNumber(buffer,5), parseNumber(buffer,6), parseNumber(buffer,7)], [parseNumber(buffer,8), parseNumber(buffer,9), parseNumber(buffer,10), parseNumber(buffer,11)], [9E+09, 9E+09, 9E+09, 9E+09, 9E+09, 9E+09]], velocity, fine, distanceSensor;
                   EGMReset egmID1;
-      
+
+      ! added additional cases
+      CASE "Tool": SetDO DO1_Tool, parseNumber(buffer,1) <> 0;
+
+      CASE "Air": SetDO DO3_Enable_1, parseNumber(buffer,1) <> 0;
+                  SetDO DO3_Enable_1, parseNumber(buffer,1) = 0;
+
+      CASE "Gripper": SetDO DO2_Gripper, parseNumber(buffer,1) <> 0;
+
     ENDTEST
 
     RETURN "OK";
